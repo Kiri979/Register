@@ -1,0 +1,1 @@
+export const API_URL = "https://ojt-api.bib-apps.com/api/"
