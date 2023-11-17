@@ -2,42 +2,43 @@ import React, { useContext, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "../styles/loginStyle";
 import { Formik } from "formik";
-import * as Yup from "yup";
 import authService from "../services/authServices";
 import { AuthContext } from "../hooks/context/context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { SignUpValidation } from "../components/singUpValidation";
+import { LoginValidation } from "../components/singUpValidation";
 
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [form, setForm] = useState({email: "", password: ""})
   const {userInfo, setUserInfo, setIsTokenValid } = useContext(AuthContext)
 
+
   const FormSubmit = (values, actions) => {
-    authService.login(values.email, values.password).then(response => {
-      console.log("Login successfully");
-      console.log(response);
-      setUserInfo(response.data)
-      setIsTokenValid(true)
-      AsyncStorage.setItem('userInfo', JSON.stringify(response.data))
-    })
-    .catch(error => console.log(error));
+    authService.login(values.email, values.password)
+      .then(response => {
+        console.log("Login successfully");
+        console.log(response.data);
+        setUserInfo(response.data);
+        setIsTokenValid(true);
+        navigation.navigate('Home');
+        AsyncStorage.setItem('userInfo', JSON.stringify(response.data));
+      })
+      .catch(error => console.log(error));
   }
+  
   return (
     <Formik
       initialValues={form}
       enableReinitialize={true}
-      validationSchema ={SignUpValidation }
+      validationSchema ={LoginValidation}
       onSubmit={(values, actions) => {FormSubmit(values, actions);}}
       onReset={(values) => {}}
     >
       {({
         values,
         errors,
-        touched,
         handleChange,
         setFieldTouched,
-        isValid,
         handleSubmit,
       }) => (
         <View style={styles.container}>
@@ -88,7 +89,7 @@ const Login = () => {
               <TouchableOpacity
                 style={styles.registerBtn}
                 onPress={() => {
-                  navigation = navigate("SingUp");
+                  navigation.navigate("SingUp");
                 }}
               >
                 <Text style={styles.registerBtnTxt}>Register</Text>

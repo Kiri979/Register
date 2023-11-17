@@ -15,7 +15,7 @@ export const SignUpValidation = Yup.object().shape({
     .min(8)
     .required("Please enter your password.")
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, "Password must include"),
-  confirmPassword: Yup.string()
+    password_confirmation: Yup.string()
     .min(8)
     .oneOf([Yup.ref("password")], "Your Password do not match.")
     .required("Confirm password is required."),

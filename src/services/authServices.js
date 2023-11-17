@@ -12,14 +12,15 @@ export default class authService {
         })
       };
       
-    static login = (email,password) => {
-        console.log(userData);
-        return axios.post(API_URL + 'auth/login', {email, password}, {
+      static login = (email, password) => {
+        console.log({ email, password });
+        return axios.post(API_URL + 'auth/login', { email, password }, {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             }
         });
     }
+    
 
 }

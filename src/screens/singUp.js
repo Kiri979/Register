@@ -6,14 +6,14 @@ import authService from "../services/authServices";
 import { SignUpValidation } from "../components/singUpValidation";
 
 const SingUp = ({navigation}) => {
-  const [form, setForm] = useState({name: "", email: "", phone: "", password: "", confirmPassword: ""})
+  const [form, setForm] = useState({name: "", email: "", phone: "", password: "", password_confirmation: ""})
   const FormSubmit = (values, actions) => {
     let userData = {
       name: values.name,
       email: values.email,
       phone: values.phone, 
       password: values.password, 
-      confirmPassword: values.confirmPassword
+      password_confirmation: values.password_confirmation
     }
 
     console.log("User Data:", userData);
@@ -108,12 +108,12 @@ const SingUp = ({navigation}) => {
                 placeholder="Enter your password again"
                 style={styles.input}
                 secureTextEntry={true}
-                value={values.confirmPassword}
-                onChangeText={handleChange("confirmPassword")}
-                onBlur={() => setFieldTouched("confirmPassword")}
+                value={values.password_confirmation}
+                onChangeText={handleChange("password_confirmation")}
+                onBlur={() => setFieldTouched("password_confirmation")}
               />
-              {errors.confirmPassword && (
-                <Text style={styles.errorsTxt}>{errors.confirmPassword}</Text>
+              {errors.password_confirmation && (
+                <Text style={styles.errorsTxt}>{errors.password_confirmation}</Text>
               )}
             </View>
 
