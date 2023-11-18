@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
-  StatusBar,
-  SafeAreaView,
-  ScrollView,
   Image,
   FlatList,
   TouchableOpacity,
 } from "react-native";
 import { styles } from "../styles/homeStyle";
-// import {AuthContext} from '../context/AuthContext';
+import useAuthCheck from "../hooks/custom/useAuthCheck";
+import { AuthContext } from "../hooks/context/context";
 // import postService from '../services/postServices';
 // import PostList from '../components/postList';
 import { Ionicons } from '@expo/vector-icons';
@@ -58,47 +55,62 @@ const renderPost = ({ item }) => {
   );
 };
 
+
 const Home = ({ navigation }) => {
   const [text, setText] = useState("");
-  return (
-    <View style={styles.container}>
-      <View style={styles.headerLogo}>
-        <Ionicons name="menu" size={30} color="black" />
-        <View>
-          
-        </View>
-      </View>
-      <View style={styles.header}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search..."
-          onChangeText={(newText) => setText(newText)}
-          defaultValue={text}
-          placeholderTextColor="#000"
-        />
-      </View>
+  const {userInfo, setUserInfo, isTokenValid, setIsTokenValid } = useContext(AuthContext)
 
-      <View style={styles.horizontal}>
-        <View style={styles.row}>
-          <Text>Featured</Text>
+  const renderContent = () => {
+    console.log("Rendering content...");
+    if (isTokenValid) {
+      console.log("Token is valid");
+      return (
+    
+        <View style={styles.container}>
+          <View style={styles.headerLogo}>
+            <Ionicons name="menu" size={30} color="black" />
+            <View>
+              
+            </View>
+          </View>
+          <View style={styles.header}>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search..."
+              onChangeText={(newText) => setText(newText)}
+              defaultValue={text}
+              placeholderTextColor="#000"
+            />
+          </View>
+    
+          <View style={styles.horizontal}>
+            <View style={styles.row}>
+              <Text>Featured</Text>
+            </View>
+            <View style={styles.row}>
+              <Text>Latest</Text>
+            </View>
+            <View style={styles.row}>
+              <Text>Trending</Text>
+            </View>
+          </View>
+    
+    
+          <FlatList
+            data={data}
+            renderItem={renderPost}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+          />
         </View>
-        <View style={styles.row}>
-          <Text>Latest</Text>
-        </View>
-        <View style={styles.row}>
-          <Text>Trending</Text>
-        </View>
-      </View>
-
-
-      <FlatList
-        data={data}
-        renderItem={renderPost}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-      />
-    </View>
-  );
+      );
+    } else {
+      console.log("Token is not valid, navigating to Login");
+      navigation.replace('Login');
+      return null;
+    }
+  }
+  return renderContent();
 };
 
 export default Home;

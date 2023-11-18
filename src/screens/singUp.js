@@ -21,6 +21,7 @@ const SingUp = ({navigation}) => {
     authService.createUser(userData).then(response => {
       console.log("Create successfully");
       console.log(response);
+      AsyncStorage.setItem("userData", JSON.stringify(userData));
       navigation.navigate('Login');
     })
     .catch(error => console.log(error));

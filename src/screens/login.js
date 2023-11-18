@@ -5,34 +5,35 @@ import { Formik } from "formik";
 import authService from "../services/authServices";
 import { AuthContext } from "../hooks/context/context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LoginValidation } from "../components/singUpValidation";
+import { LoginValidation } from "../components/loginValidation"
 
 
 const Login = ({navigation}) => {
   const [form, setForm] = useState({email: "", password: ""})
   const {userInfo, setUserInfo, setIsTokenValid } = useContext(AuthContext)
 
-
-  const FormSubmit = (values, actions) => {
-    authService.login(values.email, values.password)
-      .then(response => {
-        console.log("Login successfully");
-        console.log(response.data);
-        setUserInfo(response.data);
-        setIsTokenValid(true);
-        navigation.navigate('Home');
-        AsyncStorage.setItem('userInfo', JSON.stringify(response.data));
-      })
-      .catch(error => console.log(error));
-  }
+  const FormSubmit = async (values, actions) => {
+    try {
+      const response = await authService.login(values.email, values.password);
+      console.log("Login successfully");
+      setUserInfo(response.data);
+      setIsTokenValid(true);
+      AsyncStorage.setItem('userInfo', JSON.stringify(response.data));
+      navigation.navigate('Home');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  
   
   return (
     <Formik
       initialValues={form}
       enableReinitialize={true}
-      validationSchema ={LoginValidation}
+      validationSchema = {LoginValidation}
       onSubmit={(values, actions) => {FormSubmit(values, actions);}}
-      onReset={(values) => {}}
+      // onReset={(values) => {}}
     >
       {({
         values,
