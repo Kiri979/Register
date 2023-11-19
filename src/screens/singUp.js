@@ -2,11 +2,19 @@ import React, { useContext, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "../styles/singUpStyle";
 import { Formik } from "formik";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import authService from "../services/authServices";
 import { SignUpValidation } from "../components/singUpValidation";
+import { FontAwesome } from '@expo/vector-icons';
 
 const SingUp = ({navigation}) => {
   const [form, setForm] = useState({name: "", email: "", phone: "", password: "", password_confirmation: ""})
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  
   const FormSubmit = (values, actions) => {
     let userData = {
       name: values.name,
@@ -37,6 +45,7 @@ const SingUp = ({navigation}) => {
       {({
         values,
         errors,
+        touched,
         handleChange,
         setFieldTouched,
         handleSubmit,
@@ -44,7 +53,7 @@ const SingUp = ({navigation}) => {
         <View style={styles.container}>
           <View style={styles.body}>
             <View style={styles.header}>
-              <Text style={styles.headerTlt}>Register🖤</Text>
+              <Text style={styles.headerTlt}>🖤Register🖤</Text>
             </View>
             <View style={styles.inputGroup}>
               <Text style={styles.title}>Username</Text>
@@ -56,7 +65,7 @@ const SingUp = ({navigation}) => {
                 onChangeText={handleChange("name")}
                 onBlur={() => setFieldTouched("name")}
               />
-              {errors.name && (
+              {errors.name && touched.name && (
                 <Text style={styles.errorsTxt}>{errors.name}</Text>
               )}
             </View>
@@ -69,7 +78,7 @@ const SingUp = ({navigation}) => {
                 onChangeText={handleChange("email")}
                 onBlur={() => setFieldTouched("email")}
               />
-              {errors.email && (
+              {errors.email && touched.email && (
                 <Text style={styles.errorsTxt}>{errors.email}</Text>
               )}
             </View>
@@ -84,7 +93,7 @@ const SingUp = ({navigation}) => {
                 onChangeText={handleChange("phone")}
                 onBlur={() => setFieldTouched("phone")}
               />
-              {errors.phone && (
+              {errors.phone && touched.phone && (
                 <Text style={styles.errorsTxt}>{errors.phone}</Text>
               )}
             </View>
@@ -94,12 +103,15 @@ const SingUp = ({navigation}) => {
               <TextInput
                 placeholder="Enter your password"
                 style={styles.input}
-                secureTextEntry={true}
+                secureTextEntry={!showPassword}
                 value={values.password}
                 onChangeText={handleChange("password")}
                 onBlur={() => setFieldTouched("password")}
               />
-              {errors.password && (
+              <TouchableOpacity onPress={togglePasswordVisibility} style={styles.showHideIcon}>
+                <FontAwesome name={showPassword ? "eye" : "eye-slash"} size={24} color="black" />
+              </TouchableOpacity>
+              {errors.password && touched.password && (
                 <Text style={styles.errorsTxt}>{errors.password}</Text>
               )}
             </View>
@@ -108,12 +120,15 @@ const SingUp = ({navigation}) => {
               <TextInput
                 placeholder="Enter your password again"
                 style={styles.input}
-                secureTextEntry={true}
+                secureTextEntry={!showPassword}
                 value={values.password_confirmation}
                 onChangeText={handleChange("password_confirmation")}
                 onBlur={() => setFieldTouched("password_confirmation")}
               />
-              {errors.password_confirmation && (
+              <TouchableOpacity onPress={togglePasswordVisibility} style={styles.showHideIcon}>
+                <FontAwesome name={showPassword ? "eye" : "eye-slash"} size={24} color="black" />
+              </TouchableOpacity>
+              {errors.password_confirmation && touched.password_confirmation && (
                 <Text style={styles.errorsTxt}>{errors.password_confirmation}</Text>
               )}
             </View>

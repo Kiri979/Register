@@ -44,6 +44,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
   },
+  showHideIcon: {
+    position: 'absolute',
+    right: 10, 
+    top: 45,
+  },
   inputGroupBtn: {
     width: "90%",
     marginTop: 30,

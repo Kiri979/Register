@@ -6,11 +6,16 @@ import authService from "../services/authServices";
 import { AuthContext } from "../hooks/context/context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LoginValidation } from "../components/loginValidation"
-
+import { FontAwesome } from '@expo/vector-icons';
 
 const Login = ({navigation}) => {
+  const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({email: "", password: ""})
   const {userInfo, setUserInfo, setIsTokenValid } = useContext(AuthContext)
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const FormSubmit = async (values, actions) => {
     try {
@@ -24,9 +29,7 @@ const Login = ({navigation}) => {
       console.log(error);
     }
   };
-  
-  
-  
+   
   return (
     <Formik
       initialValues={form}
@@ -41,6 +44,7 @@ const Login = ({navigation}) => {
         handleChange,
         setFieldTouched,
         handleSubmit,
+        touched,
       }) => (
         <View style={styles.container}>
           <View style={styles.body}>
@@ -59,25 +63,28 @@ const Login = ({navigation}) => {
                 onChangeText={handleChange("email")}
                 onBlur={() => setFieldTouched("email")}
               />
-              {errors.email && (
+              {errors.email && touched.email && (
                 <Text style={styles.errorsTxt}>{errors.email}</Text>
               )}
             </View>
 
             <View style={styles.inputGroup}>
-              <Text style={styles.title}>Password</Text>
-              <TextInput
-                placeholder="Enter your password"
-                style={styles.input}
-                secureTextEntry={true}
-                value={values.password}
-                onChangeText={handleChange("password")}
-                onBlur={() => setFieldTouched("password")}
-              />
-              {errors.password && (
-                <Text style={styles.errorsTxt}>{errors.password}</Text>
-              )}
-            </View>
+            <Text style={styles.title}>Password</Text>
+            <TextInput
+              placeholder="Enter your password"
+              style={styles.input}
+              secureTextEntry={!showPassword}
+              value={values.password}
+              onChangeText={handleChange("password")}
+              onBlur={() => setFieldTouched("password")}
+            />
+            <TouchableOpacity onPress={togglePasswordVisibility} style={styles.showHideIcon}>
+              <FontAwesome name={showPassword ? "eye" : "eye-slash"} size={24} color="black" />
+            </TouchableOpacity>
+            {errors.password && touched.password && (
+              <Text style={styles.errorsTxt}>{errors.password}</Text>
+            )}
+          </View>
 
             <View style={styles.inputGroupBtn}>
               <TouchableOpacity

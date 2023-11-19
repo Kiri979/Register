@@ -9,7 +9,7 @@ export default function App () {
   const isAppReady = authState.ready;
 
   useEffect(() => {
-    hideSplash()
+    if(authState.ready) hideSplash()
   }, [authState.ready])
 
   if (!isAppReady) return;

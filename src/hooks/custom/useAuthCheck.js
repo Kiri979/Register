@@ -14,10 +14,9 @@ export default () => {
     const isLoggedIn = async () => {
         AsyncStorage.getItem('userInfo').then(async (result) => {
             const userInfo = JSON.parse(result);
-            console.log(userInfo);
-            userInfo && setUser(userInfo);
-            userInfo && setTokenValid(true);
-            userInfo && setAuthStateReady(true);
+            setUser(userInfo);
+            setTokenValid(userInfo ? true : false);
+            setAuthStateReady(true);
         });
     };
 
