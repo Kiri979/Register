@@ -10,50 +10,9 @@ import {
 import { styles } from "../styles/homeStyle";
 import useAuthCheck from "../hooks/custom/useAuthCheck";
 import { AuthContext } from "../hooks/context/context";
-// import postService from '../services/postServices';
-// import PostList from '../components/postList';
+import PostList from '../components/postList';
 import { Ionicons } from '@expo/vector-icons';
-
-const data = [
-  {
-    id: "1",
-    imageSource: require("../assets/image/img_post06.png"),
-    postTxtTtl: "Gra f falkrwef ha glrhlaiwerfhlhaellf fhal",
-    postText: "Jan 49 43 90",
-  },
-  {
-    id: "2",
-    imageSource: require("../assets/image/img_post03.png"),
-    postTxtTtl: "Gra f falkrwef ha glrhlaiwerfhlhaellf fhal",
-    postText: "Jan 49 43 90",
-  },
-  {
-    id: "3",
-    imageSource: require("../assets/image/img_post04.png"),
-    postTxtTtl: "Gra f falkrwef ha glrhlaiwerfhlhaellf fhal",
-    postText: "Jan 49 43 90",
-  },
-  {
-    id: "4",
-    imageSource: require("../assets/image/img_post05.png"),
-    postTxtTtl: "Gra f falkrwef ha glrhlaiwerfhlhaellf fhal",
-    postText: "Jan 49 43 90",
-  },
-
-
-];
-
-const renderPost = ({ item }) => {
-  return (
-    <View style={styles.posts}>
-    <Image style={styles.postImg} source={item.imageSource} />
-      <View style={styles.postTxtContainer}>
-        <Text style={styles.postTxtTtl}>{item.postTxtTtl}</Text>
-        <Text style={styles.postTxt}>{item.postText}</Text>
-      </View>
-    </View>
-  );
-};
+import { FontAwesome } from '@expo/vector-icons';
 
 
 const Home = ({ navigation }) => {
@@ -68,10 +27,12 @@ const Home = ({ navigation }) => {
     
         <View style={styles.container}>
           <View style={styles.headerLogo}>
-            <Ionicons name="menu" size={30} color="black" />
-            <View>
-              
-            </View>
+            <TouchableOpacity>
+              <Ionicons name="menu" size={30} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <FontAwesome name="user-circle-o" size={24} color="black" />
+            </TouchableOpacity>
           </View>
           <View style={styles.header}>
             <TextInput
@@ -85,23 +46,21 @@ const Home = ({ navigation }) => {
     
           <View style={styles.horizontal}>
             <View style={styles.row}>
-              <Text>Featured</Text>
+              <Text style={styles.TxtCat}>Featured</Text>
             </View>
             <View style={styles.row}>
-              <Text>Latest</Text>
+              <Text style={styles.TxtCat}>Latest</Text>
             </View>
             <View style={styles.row}>
-              <Text>Trending</Text>
+              <Text style={styles.TxtCat}>Trending</Text>
             </View>
           </View>
+
+          <View>
+            <PostList navigation={navigation} />
+          </View>
     
-    
-          <FlatList
-            data={data}
-            renderItem={renderPost}
-            keyExtractor={(item) => item.id}
-            showsVerticalScrollIndicator={false}
-          />
+
         </View>
       );
     } else {

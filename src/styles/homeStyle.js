@@ -17,6 +17,10 @@ const styles = StyleSheet.create({
       marginTop: 20,
       marginBottom: 40,
     },
+    headerLogo: {
+      flexDirection: "row",
+      justifyContent: "space-between"
+    },
     searchInput: {
       padding: 10,
       paddingLeft: 20,
@@ -34,38 +38,16 @@ const styles = StyleSheet.create({
       justifyContent: "space-between",
       marginBottom: 60,
     },
-    // row: {
-    //   fontSize: 20
-    // },
+    TxtCat: {
+      fontSize: 18,
+      fontWeight: "bold",
+    },
     vertical: {
       flexDirection: "column",
       height: "100%",
       marginBottom: 60,
     },
-    posts: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      height: 200,
-      padding: 8,
-      marginBottom: 15,
-    },
-    postTxtContainer: {
-      width: 180,
-      paddingHorizontal: 10
-    },
-    postTxtTtl: {
-      fontSize: 20,
-      fontWeight: "bold",
-      color: "#000",
-      textAlign: "left",
-      paddingBottom: 5,
-    },
-    postImg: {
-      flex: 1,
-      height: "100%",
-      width: "100%",
-      resizeMode: "cover",
-    },
+
   });
 
   export { styles};
