@@ -31,13 +31,14 @@ const Home = ({ navigation }) => {
               <Ionicons name="menu" size={30} color="black" />
             </TouchableOpacity>
             <TouchableOpacity>
-              <FontAwesome name="user-circle-o" size={24} color="black" />
+              <FontAwesome name="user-circle-o" size={30} color="black" />
             </TouchableOpacity>
           </View>
           <View style={styles.header}>
+          <FontAwesome name="search" size={24} style={styles.searchIcon} />
             <TextInput
               style={styles.searchInput}
-              placeholder="Search..."
+              placeholder="Search"
               onChangeText={(newText) => setText(newText)}
               defaultValue={text}
               placeholderTextColor="#000"
@@ -57,7 +58,7 @@ const Home = ({ navigation }) => {
           </View>
 
           <View>
-            <PostList navigation={navigation} />
+            <PostList navigation={navigation} searchText={text} />
           </View>
     
 

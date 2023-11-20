@@ -5,13 +5,13 @@ import { Formik } from "formik";
 import authService from "../services/authServices";
 import { AuthContext } from "../hooks/context/context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LoginValidation } from "../components/loginValidation"
-import { FontAwesome } from '@expo/vector-icons';
+import { LoginValidation } from "../components/loginValidation";
+import { FontAwesome } from "@expo/vector-icons";
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [form, setForm] = useState({email: "", password: ""})
-  const {userInfo, setUserInfo, setIsTokenValid } = useContext(AuthContext)
+  const [form, setForm] = useState({ email: "", password: "" });
+  const { userInfo, setUserInfo, setIsTokenValid } = useContext(AuthContext);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -23,19 +23,21 @@ const Login = ({navigation}) => {
       console.log("Login successfully");
       setUserInfo(response.data);
       setIsTokenValid(true);
-      AsyncStorage.setItem('userInfo', JSON.stringify(response.data));
-      navigation.navigate('Home');
+      AsyncStorage.setItem("userInfo", JSON.stringify(response.data));
+      navigation.navigate("Home");
     } catch (error) {
       console.log(error);
     }
   };
-   
+
   return (
     <Formik
       initialValues={form}
       enableReinitialize={true}
-      validationSchema = {LoginValidation}
-      onSubmit={(values, actions) => {FormSubmit(values, actions);}}
+      validationSchema={LoginValidation}
+      onSubmit={(values, actions) => {
+        FormSubmit(values, actions);
+      }}
       // onReset={(values) => {}}
     >
       {({
@@ -69,28 +71,40 @@ const Login = ({navigation}) => {
             </View>
 
             <View style={styles.inputGroup}>
-            <Text style={styles.title}>Password</Text>
-            <TextInput
-              placeholder="Enter your password"
-              style={styles.input}
-              secureTextEntry={!showPassword}
-              value={values.password}
-              onChangeText={handleChange("password")}
-              onBlur={() => setFieldTouched("password")}
-            />
-            <TouchableOpacity onPress={togglePasswordVisibility} style={styles.showHideIcon}>
-              <FontAwesome name={showPassword ? "eye" : "eye-slash"} size={24} color="black" />
+              <Text style={styles.title}>Password</Text>
+              <TextInput
+                placeholder="Enter your password"
+                style={styles.input}
+                secureTextEntry={!showPassword}
+                value={values.password}
+                onChangeText={handleChange("password")}
+                onBlur={() => setFieldTouched("password")}
+              />
+              <TouchableOpacity
+                onPress={togglePasswordVisibility}
+                style={styles.showHideIcon}
+              >
+                <FontAwesome
+                  name={showPassword ? "eye" : "eye-slash"}
+                  size={24}
+                  color="black"
+                />
+              </TouchableOpacity>
+              {errors.password && touched.password && (
+                <Text style={styles.errorsTxt}>{errors.password}</Text>
+              )}
+            </View>
+
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Home");
+              }}
+            >
+              <Text style={{ color: "#f26d5b" }}>Forgot Password?</Text>
             </TouchableOpacity>
-            {errors.password && touched.password && (
-              <Text style={styles.errorsTxt}>{errors.password}</Text>
-            )}
-          </View>
 
             <View style={styles.inputGroupBtn}>
-              <TouchableOpacity
-                style={styles.loginBtn}
-                onPress={handleSubmit}
-              >
+              <TouchableOpacity style={styles.loginBtn} onPress={handleSubmit}>
                 <Text style={styles.loginBtnTxt}>Login</Text>
               </TouchableOpacity>
 
@@ -101,6 +115,14 @@ const Login = ({navigation}) => {
                 }}
               >
                 <Text style={styles.registerBtnTxt}>Register</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Home");
+                }}
+              >
+                <Text style={styles.guestBtn}>Continue as guest</Text>
               </TouchableOpacity>
             </View>
           </View>

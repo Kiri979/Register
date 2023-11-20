@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   errorsTxt: {
     fontSize: 10,
-    color: "#fc5185"
+    color: "#fc5185",
   },
   title: {
     color: "#000",
@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   showHideIcon: {
-    position: 'absolute',
-    right: 10, 
+    position: "absolute",
+    right: 10,
     top: 45,
   },
   inputGroupBtn: {
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   loginBtnTxt: {
-    fontSize: 15 ,
-    color: "#fff" , 
+    fontSize: 15,
+    color: "#fff",
     textAlign: "center",
   },
 
@@ -73,8 +73,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   registerBtnTxt: {
-    fontSize: 15 ,
+    fontSize: 15,
     textAlign: "center",
-  }
+  },
+  guestBtn: {
+    fontSize: 17,
+    fontWeight: "700",
+    marginTop: 30,
+    textAlign: "center",
+    color: "#1E8EF6",
+    textDecorationLine: "underline",
+  },
 });
-  export { styles};
+export { styles };
