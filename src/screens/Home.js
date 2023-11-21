@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { styles } from "../styles/homeStyle";
-import useAuthCheck from "../hooks/custom/useAuthCheck";
 import { AuthContext } from "../hooks/context/context";
 import PostList from '../components/postList';
 import { Ionicons } from '@expo/vector-icons';

@@ -6,6 +6,15 @@ import { Ionicons } from "@expo/vector-icons";
 
 const ReadPost = ({ navigation, route }) => {
   const { post } = route.params;
+  const fallbackImages = [
+    require('../assets/image/img_post02.png'),
+    require('../assets/image/img_post03.png'),
+    require('../assets/image/img_post04.png'),
+    require('../assets/image/img_post05.png'),
+    require('../assets/image/img_post06.png'),
+  ];
+
+  const fallbackImage = post.image ? { uri: post.image } : fallbackImages[0];
 
   return (
     <View style={styles.readPostContainer}>
@@ -21,8 +30,11 @@ const ReadPost = ({ navigation, route }) => {
           <Ionicons name="menu" size={30} color="black" />
         </TouchableOpacity>
       </View>
-      <Image source={{ uri: post.image }} style={styles.readPostImg} />
-      <View style={styles.readPostBody}>
+      <Image
+        source={fallbackImage}
+        style={styles.readPostImg}
+      />
+        <View style={styles.readPostBody}>
         <Text style={styles.readPostTtl}>{post.title}</Text>
         <Text style={styles.readPostPara}>{post.body}</Text>
       </View>

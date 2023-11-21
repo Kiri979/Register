@@ -22,16 +22,34 @@ const PostList = ({ navigation, searchText }) => {
       });
   };
 
-  const renderPost = ({ item }) => {
+  const localImages = [
+    require('../assets/image/img_post02.png'),
+    require('../assets/image/img_post03.png'),
+    require('../assets/image/img_post04.png'),
+    require('../assets/image/img_post05.png'),
+    require('../assets/image/img_post06.png'),
+  ];
+
+  const formatCreatedAt = (createdAt) => {
+    const date = new Date(createdAt);
+    const month = date.toLocaleString('default', { month: 'long' });
+    const minutes = date.getMinutes();
+    return `${month} ${minutes} min ago`;
+  };
+
+  const renderPost = ({ item, index }) => {
+    const postImage = item.image ? { uri: item.image } : localImages[index % localImages.length];
+    const formattedCreatedAt = formatCreatedAt(item.created_at);
+
     return (
       <TouchableOpacity
         onPress={() => navigation.navigate("ReadPost", { post: item })}
       >
         <View style={styles.posts}>
-          <Image style={styles.postImg} source={{ uri: item.image }} />
+          <Image style={styles.postImg} source={postImage} />
           <View style={styles.postTxtContainer}>
             <Text style={styles.postTxtTtl}>{item.title}</Text>
-            <Text style={styles.postTxt}>{item.created_at}</Text>
+            <Text style={styles.postTxt}>{formattedCreatedAt}</Text>
           </View>
         </View>
       </TouchableOpacity>

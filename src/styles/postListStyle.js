@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     height: 200,
     padding: 8,
-    marginBottom: 15,
+    marginBottom: 10,
   },
   postTxtContainer: {
     width: 180,
@@ -19,9 +19,12 @@ const styles = StyleSheet.create({
     textAlign: "left",
     paddingBottom: 5,
   },
+  postTxt: {
+    fontSize: 12,
+  },
   postImg: {
     flex: 1,
-    height: "80%",
+    height: "70%",
     width: "80%",
     resizeMode: "cover",
   },
