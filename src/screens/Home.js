@@ -56,6 +56,13 @@ const Home = ({ navigation }) => {
             </View>
           </View>
 
+          <TouchableOpacity
+            style={styles.createBtn}
+            onPress={() => navigation.navigate('Post')}
+          >
+          <Ionicons name="add-circle-sharp" style={styles.createBtnIcon}  />
+          </TouchableOpacity>
+
           <View>
             <PostList navigation={navigation} searchText={text} />
           </View>

@@ -4,6 +4,7 @@ import SingUp from "../screens/singUp";
 import Login from "../screens/login";
 import Home from "../screens/Home";
 import ReadPost from "../screens/readPost";
+import Post from "../screens/post";
 import { AuthContext } from "../hooks/context/context";
 
 const Stack = createStackNavigator();
@@ -16,6 +17,7 @@ export default function StackNavigator() {
       <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
       <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
       <Stack.Screen name="ReadPost" component={ReadPost} options={{ headerShown: false }} />
+      <Stack.Screen name="Post" component={Post} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }

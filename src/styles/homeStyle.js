@@ -49,6 +49,17 @@ const styles = StyleSheet.create({
     height: "100%",
     marginBottom: 60,
   },
+  createBtn: {
+    position: "absolute",
+    bottom: 40,
+    right: 30,
+    zIndex: 100,
+  },
+  createBtnIcon: {
+    color: "#3498db",
+    fontSize: 60,
+  },
+
 });
 
 export { styles };
